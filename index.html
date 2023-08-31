@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Formulário para CSV</title>
+</head>
+<body>
+    <form id="formularioCSV">
+        <label for="nome">Nome:</label>
+        <input type="text" id="nome" name="nome" placeholder="Leandro Silva" required><br><br>
+        
+        <label for="telefone">Telefone:</label>
+        <input type="tel" id="telefone" name="telefone" placeholder="(21)9999-9999" required><br><br>
+        
+        <button type="button" onclick="enviarParaServidor()">Solicite sua chamada</button>
+    </form>
+
+    <script>
+        function enviarParaServidor() {
+            var nome = document.getElementById("nome").value;
+            var telefone = document.getElementById("telefone").value;
+            
+            var xhr = new XMLHttpRequest();
+            xhr.open("POST", "/adicionar", true);
+            xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+            
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState === 4 && xhr.status === 200) {
+                    alert("Em breve entraremos em contato!");
+                }
+            };
+            
+            xhr.send(JSON.stringify({ nome: nome, telefone: telefone }));
+        }
+    </script>
+</body>
+</html>
